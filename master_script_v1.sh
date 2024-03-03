@@ -1,9 +1,5 @@
 #!/bin/bash
 
-rm *.mp4 
-rm *.opus
-rm *.gif
-rm *.webm
 
 
 # Set static variables (replace with actual values)
@@ -47,3 +43,10 @@ ffmpeg -i input.mp4 -filter_complex "setpts=PTS/$factor" stretched.mp4
 
 # Combine audio and video using ffmpeg
 ffmpeg -i stretched.mp4 -i music.opus -c:v copy -c:a aac -strict experimental _.mp4
+
+# clean up
+rm *.opus
+rm *.gif
+rm *.webm
+find . -type f ! -name '_.mp4' -exec rm {} +
+
