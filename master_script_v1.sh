@@ -1,6 +1,13 @@
 #!/bin/bash
 
 
+# clean up
+rm *.opus
+rm *.gif
+rm *.webm
+
+# Delete all .mp4 files except those ending with *_.mp4
+find . -type f -name "*.mp4" ! -name "*_.mp4" -exec rm {} \;
 
 # Set static variables (replace with actual values)
 GIF_URL="https://lichess1.org/game/export/gif/black/bXCaVefv.gif?theme=blue3&piece=cburnett"
@@ -44,12 +51,10 @@ EOF
 
 ffmpeg -i input.mp4 -filter_complex "setpts=PTS/$factor" stretched.mp4
 
-# Combine audio and video using ffmpeg
-ffmpeg -i stretched.mp4 -i music.opus -c:v copy -c:a aac -strict experimental _.mp4
 
-# clean up
-rm *.opus
-rm *.gif
-rm *.webm
+timestamp=$(cat /dev/urandom | tr -dc 'a-z' | fold -w 2 | head -n 1)
+# Combine audio and video using ffmpeg and append the random timestamp to the output filename
+ffmpeg -i stretched.mp4 -i music.opus -c:v copy -c:a aac -strict experimental "${timestamp}_.mp4"
+
 
 
