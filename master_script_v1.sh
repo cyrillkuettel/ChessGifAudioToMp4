@@ -13,7 +13,7 @@ find . -type f -name "*.mp4" ! -name "*_.mp4" -exec rm {} \;
 GIF_URL="https://lichess1.org/game/export/gif/black/bXCaVefv.gif?theme=blue3&piece=cburnett"
 
 #danish
-GIF_URL="https://lichess1.org/game/export/gif/white/eDEBFpai.gif?theme=blue3&piece=cburnett"
+# GIF_URL="https://lichess1.org/game/export/gif/white/eDEBFpai.gif?theme=blue3&piece=cburnett"
 
 MUSIC_URL="https://www.youtube.com/watch?v=lTH1EJZKB-I"
 
