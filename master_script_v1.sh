@@ -17,8 +17,9 @@ GIF_URL="https://lichess1.org/game/export/gif/white/eDEBFpai.gif?theme=blue3&pie
 
 MUSIC_URL="https://www.youtube.com/watch?v=lTH1EJZKB-I"
 
-# Get the audio using yt-dlp and store in music.opus
-yt-dlp -x "$MUSIC_URL" -o music -k
+
+# Get the audio using yt-dlp and store in file music.opus
+# yt-dlp -x "$MUSIC_URL" -o music -k
 
 # Get the video using curl and create an MP4 from the GIF
 curl "$GIF_URL" --output foo.gif
@@ -36,7 +37,7 @@ def get_duration(filename):
     return float(result.stdout)
 
 video_duration = get_duration('input.mp4')
-audio_duration = get_duration('music.opus')
+audio_duration = get_duration('music.mp3')
 
 factor = video_duration / audio_duration
 print(factor)
@@ -52,9 +53,9 @@ EOF
 ffmpeg -i input.mp4 -filter_complex "setpts=PTS/$factor" stretched.mp4
 
 
-timestamp=$(cat /dev/urandom | tr -dc 'a-z' | fold -w 2 | head -n 1)
-# Combine audio and video using ffmpeg and append the random timestamp to the output filename
-ffmpeg -i stretched.mp4 -i music.opus -c:v copy -c:a aac -strict experimental "${timestamp}_.mp4"
-
-
-
+# filename: Generate a random two-letter string with letters and numbers
+# output: Combine audio and video using ffmpeg 
+timestamp=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 2 | head -n 1)
+output_file="${timestamp}_.mp4"
+ffmpeg -i stretched.mp4 -i music.mp3 -c:v copy -c:a aac -strict experimental "$output_file"
+echo "File created: $output_file"
