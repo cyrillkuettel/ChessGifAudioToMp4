@@ -5,6 +5,9 @@
 # Set static variables (replace with actual values)
 GIF_URL="https://lichess1.org/game/export/gif/black/bXCaVefv.gif?theme=blue3&piece=cburnett"
 
+#danish
+GIF_URL="https://lichess1.org/game/export/gif/white/eDEBFpai.gif?theme=blue3&piece=cburnett"
+
 MUSIC_URL="https://www.youtube.com/watch?v=lTH1EJZKB-I"
 
 # Get the audio using yt-dlp and store in music.opus
@@ -48,5 +51,5 @@ ffmpeg -i stretched.mp4 -i music.opus -c:v copy -c:a aac -strict experimental _.
 rm *.opus
 rm *.gif
 rm *.webm
-find . -type f ! -name '_.mp4' -exec rm {} +
+
 
