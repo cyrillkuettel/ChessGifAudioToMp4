@@ -38,14 +38,12 @@ EOF
 )
 
 
-# this approach is used:
-
-    # len(video) = len(song)
-    #
-# to prevent changing the original duration of the soundtrack.
+# The mp4 is stretched to the lenght of the audio.
+# Strategy: len(video) = len(song) 
+# The original duration of the soundtrack is preserved. 
+# The $factor denotes the ratio between the length of the music & video. 
 
 ffmpeg -i input.mp4 -filter_complex "setpts=PTS/$factor" stretched.mp4
 
-# Overlay audio
 # Combine audio and video using ffmpeg
-# ffmpeg -i input_1.mp4 -i music.opus -c:v copy -c:a aac -strict experimental _.mp4
+ffmpeg -i stretched.mp4 -i music.opus -c:v copy -c:a aac -strict experimental _.mp4
