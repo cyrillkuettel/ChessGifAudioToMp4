@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ffmpeg -i input.gif output.mp4
 
 # clean up
 rm *.opus
